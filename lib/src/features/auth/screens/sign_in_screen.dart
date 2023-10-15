@@ -1,3 +1,4 @@
+import 'package:app_nib/src/commons/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -6,57 +7,45 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: [
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width,
-            height: MediaQuery.sizeOf(context).height,
-            child: ColoredBox(color: Theme.of(context).primaryColor),
+      child: Container(
+        color: Theme.of(context).primaryColor,
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: MediaQuery.sizeOf(context).height * 0.9,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           ),
-          Positioned(
-            bottom: 0,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              child: SizedBox(
-                width: MediaQuery.sizeOf(context).width,
-                height: MediaQuery.sizeOf(context).height / 1.125,
-                child: ColoredBox(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Spacer(flex: 2),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 24),
-                          child: Image.asset("assets/images/nib_logo.png", width: 160),
-                        ),
-                        const TextField(decoration: InputDecoration(labelText: "Matricula")),
-                        const SizedBox(height: 16),
-                        const TextField(decoration: InputDecoration(labelText: "Senha")),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 32, bottom: 8),
-                          child: ElevatedButton(onPressed: () {}, child: const Text("Entrar")),
-                        ),
-                        TextButton(onPressed: () {}, child: const Text("Esqueceu sua senha?")),
-                        const Spacer(),
-                        const Text("Não tem conta?"),
-                        TextButton(
-                          child: const Text("Criar conta"),
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/sign-up');
-                          },
-                        ),
-                        const SizedBox(height: 32)
-                      ],
-                    ),
-                  ),
+          child: Form(
+            child: Column(
+              children: [
+                const Spacer(flex: 2),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Image.asset("assets/images/nib_logo.png", width: 160),
                 ),
-              ),
+                const CustomTextFormField(labelText: "Matricula"),
+                const SizedBox(height: 16),
+                const CustomTextFormField(labelText: "Senha"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 32, bottom: 8),
+                  child: ElevatedButton(onPressed: () {}, child: const Text("Entrar")),
+                ),
+                TextButton(onPressed: () {}, child: const Text("Esqueceu sua senha?")),
+                const Spacer(),
+                const Text("Não tem conta?"),
+                TextButton(
+                  child: const Text("Criar conta"),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/sign-up');
+                  },
+                ),
+                const SizedBox(height: 16)
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
