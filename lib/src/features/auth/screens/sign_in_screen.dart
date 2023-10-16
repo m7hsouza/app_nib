@@ -30,9 +30,17 @@ class SignInScreen extends StatelessWidget {
                 const CustomTextFormField(labelText: "Senha"),
                 Padding(
                   padding: const EdgeInsets.only(top: 32, bottom: 8),
-                  child: ElevatedButton(onPressed: () {}, child: const Text("Entrar")),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/');
+                    },
+                    child: const Text("Entrar"),
+                  ),
                 ),
-                TextButton(onPressed: () {}, child: const Text("Esqueceu sua senha?")),
+                TextButton(
+                  child: const Text("Esqueceu sua senha?"),
+                  onPressed: () {},
+                ),
                 const Spacer(),
                 const Text("Não tem conta?"),
                 TextButton(
