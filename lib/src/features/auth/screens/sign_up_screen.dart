@@ -8,79 +8,70 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: LayoutWidget(
-      child: Form(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              Text(
-                "Criar um nova conta",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
+      child: LayoutWidget(
+        title: Text(
+          "Criar um nova conta",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Form(
+            child: Column(
+              children: [
+                const CustomTextFormField(labelText: "Nome Completo"),
+                const SizedBox(height: 16),
+                const CustomTextFormField(labelText: "Email"),
+                const SizedBox(height: 16),
+                const CustomTextFormField(labelText: "Celular"),
+                const SizedBox(height: 16),
+                DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField(
+                    padding: const EdgeInsets.all(0),
+                    isDense: true,
+                    onChanged: (value) {},
+                    items: [
+                      "Masculino",
+                      "Feminino"
+                    ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                  ),
                 ),
-              ),
-              const Text(
-                "Por favor preencha o formulário para continuar",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.normal,
+                const SizedBox(height: 16),
+                const CustomTextFormField(labelText: "Nascimento"),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Checkbox(value: true, onChanged: (value) {}),
+                    const Text("Já sou batizado")
+                  ],
                 ),
-              ),
-              const SizedBox(height: 24),
-              const CustomTextFormField(labelText: "Nome Completo"),
-              const SizedBox(height: 16),
-              const CustomTextFormField(labelText: "Email"),
-              const SizedBox(height: 16),
-              const CustomTextFormField(labelText: "Celular"),
-              const SizedBox(height: 16),
-              DropdownButtonHideUnderline(
-                child: DropdownButtonFormField(
-                  padding: const EdgeInsets.all(0),
-                  isDense: true,
-                  onChanged: (value) {},
-                  items: [
-                    "Masculino",
-                    "Feminino"
-                  ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                Row(
+                  children: [
+                    Checkbox(value: true, onChanged: (value) {}),
+                    const Expanded(
+                      child: Text("Já assinei a ficha de compromisso de membro"),
+                    )
+                  ],
                 ),
-              ),
-              const SizedBox(height: 16),
-              const CustomTextFormField(labelText: "Nascimento"),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Checkbox(value: true, onChanged: (value) {}),
-                  const Text("Já sou batizado")
-                ],
-              ),
-              Row(
-                children: [
-                  Checkbox(value: true, onChanged: (value) {}),
-                  const Expanded(
-                    child: Text("Já assinei a ficha de compromisso de membro"),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: ElevatedButton(onPressed: () {}, child: const Text("Criar")),
-              ),
-              const Text("Já tem conta?"),
-              TextButton(
-                child: const Text("Faça seu login"),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/sign-in');
-                },
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: ElevatedButton(onPressed: () {}, child: const Text("Criar")),
+                ),
+                const Text("Já tem conta?"),
+                TextButton(
+                  child: const Text("Faça seu login"),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/sign-in');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -1,35 +1,31 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class LayoutWidget extends StatelessWidget {
-  const LayoutWidget({super.key, required this.child, this.title});
+  const LayoutWidget({super.key, required this.body, this.title});
 
-  final Widget child;
+  final Widget body;
   final Widget? title;
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
-    return Column(
-      children: [
-        ClipPath(
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(150),
+        child: ClipPath(
           clipper: _SShapedClipper(),
           child: SizedBox(
             height: 150,
             width: screenSize.width,
-            child: ColoredBox(
-              color: Theme.of(context).primaryColor,
+            child: AppBar(
+              title: title,
+              centerTitle: true,
+              backgroundColor: Theme.of(context).primaryColor,
             ),
           ),
         ),
-        Expanded(
-          child: ColoredBox(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: child,
-          ),
-        ),
-      ],
+      ),
+      body: body,
     );
   }
 }

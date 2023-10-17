@@ -9,7 +9,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: LayoutWidget(
-        child: Padding(
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             child: Column(
