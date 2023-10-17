@@ -8,46 +8,47 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: LayoutWidget(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Form(
-          child: Column(
-            children: [
-              const Spacer(flex: 2),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Image.asset("assets/images/nib_logo.png", width: 160),
-              ),
-              const CustomTextFormField(labelText: "Matricula"),
-              const SizedBox(height: 16),
-              const CustomTextFormField(labelText: "Senha"),
-              Padding(
-                padding: const EdgeInsets.only(top: 32, bottom: 8),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
-                  },
-                  child: const Text("Entrar"),
+      child: LayoutWidget(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Form(
+            child: Column(
+              children: [
+                const Spacer(flex: 2),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Image.asset("assets/images/nib_logo.png", width: 160),
                 ),
-              ),
-              TextButton(
-                child: const Text("Esqueceu sua senha?"),
-                onPressed: () {},
-              ),
-              const Spacer(),
-              const Text("Não tem conta?"),
-              TextButton(
-                child: const Text("Criar conta"),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/sign-up');
-                },
-              ),
-              const SizedBox(height: 16)
-            ],
+                const CustomTextFormField(labelText: "Matricula"),
+                const SizedBox(height: 16),
+                const CustomTextFormField(labelText: "Senha"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 32, bottom: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/');
+                    },
+                    child: const Text("Entrar"),
+                  ),
+                ),
+                TextButton(
+                  child: const Text("Esqueceu sua senha?"),
+                  onPressed: () {},
+                ),
+                const Spacer(),
+                const Text("Não tem conta?"),
+                TextButton(
+                  child: const Text("Criar conta"),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/sign-up');
+                  },
+                ),
+                const SizedBox(height: 16)
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

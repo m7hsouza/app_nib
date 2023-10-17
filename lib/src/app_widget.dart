@@ -19,7 +19,6 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      initialRoute: "/sign-in",
       routes: {
         "/sign-in": (_) => const SignInScreen(),
         "/sign-up": (_) => const SignUpScreen(),
