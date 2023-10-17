@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class LayoutWidget extends StatelessWidget {
@@ -9,34 +11,25 @@ class LayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
-    return ColoredBox(
-      color: Theme.of(context).primaryColor,
-      child: Column(
-        children: [
-          SizedBox(
-            height: screenSize.height * 0.08,
-            child: Transform.translate(
-              offset: Offset(0, screenSize.height * .02),
-              child: AppBar(
-                backgroundColor: Colors.transparent,
-                title: title,
-                centerTitle: true,
-                elevation: 0,
-              ),
+    return Column(
+      children: [
+        ClipPath(
+          clipper: _SShapedClipper(),
+          child: SizedBox(
+            height: 150,
+            width: screenSize.width,
+            child: ColoredBox(
+              color: Theme.of(context).primaryColor,
             ),
           ),
-          ClipPath(
-            clipper: _SShapedClipper(),
-            child: SizedBox(
-              height: screenSize.height * 0.92,
-              child: ColoredBox(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: child,
-              ),
-            ),
+        ),
+        Expanded(
+          child: ColoredBox(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: child,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -46,10 +39,20 @@ class _SShapedClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
 
-    path.moveTo(0, size.height);
-    path.lineTo(0, 100);
-    path.cubicTo(size.width * 0.25, -30, size.width * 0.6, 120, size.width, 0);
-    path.lineTo(size.width, size.height);
+    path.moveTo(0, 0);
+    path.lineTo(0, size.height);
+
+    final x1 = size.width * 0.45;
+    const y1 = 25.0;
+
+    final x2 = size.width * 0.65;
+    const y2 = 175.0;
+
+    final x3 = size.width;
+    const y3 = 50.0;
+
+    path.cubicTo(x1, y1, x2, y2, x3, y3);
+    path.lineTo(size.width, 0);
     return path;
   }
 
