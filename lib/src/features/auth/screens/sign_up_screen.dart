@@ -28,10 +28,15 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 const CustomTextFormField(labelText: "Celular"),
                 const SizedBox(height: 16),
-                DropdownButtonHideUnderline(
+                SizedBox(
+                  height: 50,
                   child: DropdownButtonFormField(
-                    padding: const EdgeInsets.all(0),
-                    isDense: true,
+                    decoration: const InputDecoration(
+                      labelText: "Sexo",
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    ),
+                    value: "Masculino",
+                    itemHeight: 50,
                     onChanged: (value) {},
                     items: [
                       "Masculino",
@@ -57,14 +62,14 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  padding: const EdgeInsets.only(top: 32, bottom: 48),
                   child: ElevatedButton(onPressed: () {}, child: const Text("Criar")),
                 ),
                 const Text("Já tem conta?"),
                 TextButton(
                   child: const Text("Faça seu login"),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/sign-in');
+                    Navigator.pushReplacementNamed(context, '/screens/sign-in');
                   },
                 ),
               ],

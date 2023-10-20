@@ -9,23 +9,27 @@ class LayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(150),
-        child: ClipPath(
-          clipper: _SShapedClipper(),
-          child: SizedBox(
-            height: 150,
-            width: screenSize.width,
-            child: AppBar(
-              title: title,
-              centerTitle: true,
-              backgroundColor: Theme.of(context).primaryColor,
+    return Material(
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 140),
+            child: body,
+          ),
+          ClipPath(
+            clipper: _SShapedClipper(),
+            child: SizedBox(
+              height: 150,
+              width: screenSize.width,
+              child: AppBar(
+                title: title,
+                centerTitle: true,
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
             ),
           ),
-        ),
+        ],
       ),
-      body: body,
     );
   }
 }

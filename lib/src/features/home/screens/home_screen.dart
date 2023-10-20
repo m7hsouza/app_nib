@@ -25,9 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      Navigator.pushReplacementNamed(context, "/sign-in");
-    });
+    // WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+    //   Navigator.pushReplacementNamed(context, "/sign-in");
+    // });
   }
 
   @override

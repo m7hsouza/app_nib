@@ -26,7 +26,7 @@ class SignInScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 32, bottom: 8),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/');
+                      Navigator.pushReplacementNamed(context, "/screens/");
                     },
                     child: const Text("Entrar"),
                   ),
@@ -40,7 +40,7 @@ class SignInScreen extends StatelessWidget {
                 TextButton(
                   child: const Text("Criar conta"),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/sign-up');
+                    Navigator.pushReplacementNamed(context, '/screens/sign-up');
                   },
                 ),
                 const SizedBox(height: 16)

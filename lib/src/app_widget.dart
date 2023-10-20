@@ -19,10 +19,11 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
+      initialRoute: "/screens/sign-in",
       routes: {
-        "/sign-in": (_) => const SignInScreen(),
-        "/sign-up": (_) => const SignUpScreen(),
-        "/": (_) => const HomeScreen(),
+        "/screens/sign-in": (_) => const SignInScreen(),
+        "/screens/sign-up": (_) => const SignUpScreen(),
+        "/screens/": (_) => const HomeScreen(),
       },
     );
   }
