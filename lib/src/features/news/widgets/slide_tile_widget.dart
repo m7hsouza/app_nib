@@ -25,12 +25,13 @@ class SlideTileWidget extends StatelessWidget {
         right: 16,
       ),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          image: DecorationImage(
-            image: NetworkImage(imageURL),
-            fit: BoxFit.cover,
-          ),
-          boxShadow: boxShadow),
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(
+          image: NetworkImage(imageURL),
+          fit: BoxFit.cover,
+        ),
+        boxShadow: boxShadow,
+      ),
     );
   }
 }

@@ -76,28 +76,46 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget? _itemBuilder(BuildContext context, int index) {
     final currentNews = _news[index];
     return ListTile(
+      onTap: () {
+        Navigator.pushNamed(context, "/screens/single-news", arguments: currentNews["id"]);
+      },
       leading: SizedBox(
         width: 60,
-        child: Image.network(
-          currentNews['imageURL']!,
-          fit: BoxFit.cover,
+        child: Hero(
+          tag: "news:${currentNews['id']}",
+          child: Image.network(
+            currentNews['imageURL']!,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
       title: Text("${currentNews['title']}"),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("${currentNews['content']}"),
-          Row(
-            children: [
-              const Icon(Icons.thumb_up_alt_rounded, size: 20),
-              Text("${currentNews['likes']}"),
-              const SizedBox(width: 16),
-              const Icon(Icons.comment_rounded, size: 20),
-              Text("${currentNews['comments']}"),
-            ],
-          )
-        ],
+      subtitle: IconTheme.merge(
+        data: const IconThemeData(size: 16),
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.thumb_up_alt_rounded,
+                ),
+                Text("${currentNews['likes']}"),
+                const SizedBox(width: 16),
+                const Icon(
+                  Icons.comment_rounded,
+                ),
+                Text("${currentNews['comments']}"),
+                const Spacer(),
+                const Text("Dois mêses atras")
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

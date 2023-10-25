@@ -1,3 +1,4 @@
+import 'package:app_nib/src/features/news/screens/single_news_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_nib/config/app_theme.dart';
@@ -15,9 +16,10 @@ class AppWidget extends StatelessWidget {
       theme: AppTheme.light,
       initialRoute: "/screens/sign-in",
       routes: {
-        "/screens/sign-in": (_) => const SignInScreen(),
-        "/screens/sign-up": (_) => const SignUpScreen(),
-        "/screens/": (_) => const MainScreen(),
+        "/screens/": (context) => const MainScreen(),
+        "/screens/sign-in": (context) => const SignInScreen(),
+        "/screens/sign-up": (context) => const SignUpScreen(),
+        "/screens/single-news": (context) => const SingleNewsScreen(),
       },
     );
   }
