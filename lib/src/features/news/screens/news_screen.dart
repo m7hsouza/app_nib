@@ -12,23 +12,48 @@ class _NewsScreenState extends State<NewsScreen> {
   final _slides = [
     {
       "id": "1",
-      "imageURL": "https://placehold.co/1366x768/png?text=Image\n1"
+      "imageURL": "https://placehold.co/1366x768/png?text=Card\n1"
     },
     {
       "id": "2",
-      "imageURL": "https://placehold.co/1366x768/png?text=Image\n2"
+      "imageURL": "https://placehold.co/1366x768/png?text=Card\n2"
     },
     {
       "id": "3",
-      "imageURL": "https://placehold.co/1366x768/png?text=Image\n3"
+      "imageURL": "https://placehold.co/1366x768/png?text=Card\n3"
     },
     {
       "id": "4",
-      "imageURL": "https://placehold.co/1366x768/png?text=Image\n4"
+      "imageURL": "https://placehold.co/1366x768/png?text=Card\n4"
     },
   ];
 
-
+  final _news = [
+    {
+      "id": "001",
+      "title": "Tile 001",
+      "content": "Sample description 001",
+      "imageURL": "https://placehold.co/768x1366/png?text=News\n1",
+      "likes": "10",
+      "comments": "8",
+    },
+    {
+      "id": "002",
+      "title": "Tile 002",
+      "content": "Sample description 002",
+      "imageURL": "https://placehold.co/768x1366/png?text=News\n2",
+      "likes": "10",
+      "comments": "15",
+    },
+    {
+      "id": "003",
+      "title": "Tile 003",
+      "content": "Sample description 003",
+      "imageURL": "https://placehold.co/768x1366/png?text=News\n3",
+      "likes": "1",
+      "comments": "0",
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +61,42 @@ class _NewsScreenState extends State<NewsScreen> {
       child: Column(
         children: [
           SlideWidget(slides: _slides),
-        
+          Expanded(
+            child: ListView.separated(
+              itemCount: _news.length,
+              itemBuilder: _itemBuilder,
+              separatorBuilder: (_, __) => const Divider(),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget? _itemBuilder(BuildContext context, int index) {
+    final currentNews = _news[index];
+    return ListTile(
+      leading: SizedBox(
+        width: 60,
+        child: Image.network(
+          currentNews['imageURL']!,
+          fit: BoxFit.cover,
+        ),
+      ),
+      title: Text("${currentNews['title']}"),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${currentNews['content']}"),
+          Row(
+            children: [
+              const Icon(Icons.thumb_up_alt_rounded, size: 20),
+              Text("${currentNews['likes']}"),
+              const SizedBox(width: 16),
+              const Icon(Icons.comment_rounded, size: 20),
+              Text("${currentNews['comments']}"),
+            ],
+          )
         ],
       ),
     );
