@@ -1,4 +1,4 @@
-import 'package:app_nib/src/commons/widgets/custom_text_form_field.dart';
+import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:app_nib/src/features/auth/screens/widgets/layout_widget.dart';
 import 'package:flutter/material.dart';
 
