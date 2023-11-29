@@ -1,9 +1,25 @@
+import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:app_nib/src/features/auth/screens/widgets/layout_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  late final SignInStore _store;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _store = context.read();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +28,7 @@ class SignInScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
+            key: _store.form,
             child: Column(
               children: [
                 const Spacer(flex: 2),
@@ -19,15 +36,13 @@ class SignInScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: Image.asset("assets/images/nib_logo.png", width: 160),
                 ),
-                const CustomTextFormField(labelText: "Matricula"),
+                CustomTextFormField(labelText: "Matricula", keyboardType: TextInputType.number, controller: _store.enrollmentNumber, validator: _store.validateEnrollmentNumber,),
                 const SizedBox(height: 16),
-                const CustomTextFormField(labelText: "Senha"),
+                CustomTextFormField(labelText: "Senha", controller: _store.password, validator: _store.validatePassword),
                 Padding(
                   padding: const EdgeInsets.only(top: 32, bottom: 8),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, "/screens/");
-                    },
+                    onPressed: _store.login,
                     child: const Text("Entrar"),
                   ),
                 ),

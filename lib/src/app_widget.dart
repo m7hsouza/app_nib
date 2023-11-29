@@ -1,3 +1,5 @@
+import 'package:app_nib/src/commons/auth/auth_service.dart';
+import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/features/news/screens/single_news_screen.dart';
 import 'package:app_nib/src/shared/services/http_service.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,9 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<HttpService>(create: (_) => HttpService())
+        Provider<HttpService>(create: (_) => HttpService()),
+        ChangeNotifierProvider(create: (ctx) => AuthService(ctx.read<HttpService>())),
+        ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
