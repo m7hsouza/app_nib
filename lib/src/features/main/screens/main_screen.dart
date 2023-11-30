@@ -2,7 +2,9 @@ import 'package:app_nib/src/features/admin/screens/admin_panel_settings_screen.d
 import 'package:app_nib/src/features/home/screens/home_screen.dart';
 import 'package:app_nib/src/features/news/screens/news_screen.dart';
 import 'package:app_nib/src/features/profile/screens/profile_screen.dart';
+import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,15 +22,6 @@ class _MainScreenState extends State<MainScreen> {
     const AdminPanelSettingsScreen(),
     const ProfileScreen(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    // WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-    //   Navigator.pushReplacementNamed(context, "/sign-in");
-    // });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +52,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Perfil"),
         ],
       ),
+      floatingActionButton: _buildFloatActionButton(),
     );
   }
 
@@ -68,5 +62,13 @@ class _MainScreenState extends State<MainScreen> {
       _currentScreenIndex = index;
       _screenController.jumpToPage(_currentScreenIndex);
     });
+  }
+
+  Widget? _buildFloatActionButton() {
+    final auth = context.read<AuthService>();
+    if (_currentScreenIndex == 1 && auth.can('article.create')) {
+      return FloatingActionButton.extended(onPressed: () {}, label: const Text('Nova Noticia'));
+    }
+    return null;
   }
 }

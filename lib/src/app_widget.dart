@@ -1,3 +1,4 @@
+import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/features/news/screens/single_news_screen.dart';
@@ -21,7 +22,8 @@ class AppWidget extends StatelessWidget {
       providers: [
         Provider<HttpService>(create: (_) => HttpService()),
         ChangeNotifierProvider(create: (ctx) => AuthService(ctx.read<HttpService>())),
-        ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>()))
+        ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>())),
+        ChangeNotifierProvider(create: (ctx) => NewsStore(ctx.read<HttpService>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

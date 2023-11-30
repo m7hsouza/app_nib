@@ -1,5 +1,8 @@
+import 'package:app_nib/src/features/news/models/article.dart';
+import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/features/news/widgets/slide_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -9,62 +12,31 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  final _slides = [
-    {
-      "id": "1",
-      "imageURL": "https://placehold.co/1366x768/png?text=Card\n1"
-    },
-    {
-      "id": "2",
-      "imageURL": "https://placehold.co/1366x768/png?text=Card\n2"
-    },
-    {
-      "id": "3",
-      "imageURL": "https://placehold.co/1366x768/png?text=Card\n3"
-    },
-    {
-      "id": "4",
-      "imageURL": "https://placehold.co/1366x768/png?text=Card\n4"
-    },
-  ];
-
-  final _news = [
-    {
-      "id": "001",
-      "title": "Tile 001",
-      "content": "Sample description 001",
-      "imageURL": "https://placehold.co/768x1366/png?text=News\n1",
-      "likes": "10",
-      "comments": "8",
-    },
-    {
-      "id": "002",
-      "title": "Tile 002",
-      "content": "Sample description 002",
-      "imageURL": "https://placehold.co/768x1366/png?text=News\n2",
-      "likes": "10",
-      "comments": "15",
-    },
-    {
-      "id": "003",
-      "title": "Tile 003",
-      "content": "Sample description 003",
-      "imageURL": "https://placehold.co/768x1366/png?text=News\n3",
-      "likes": "1",
-      "comments": "0",
-    }
-  ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final newsStore = context.watch<NewsStore>();
+
+    if (newsStore.state == NewsState.loading) {
+      return const SafeArea(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return SafeArea(
       child: Column(
         children: [
-          SlideWidget(slides: _slides),
+          if (newsStore.highlights.isNotEmpty) const SlideWidget(),
           Expanded(
             child: ListView.separated(
-              itemCount: _news.length,
-              itemBuilder: _itemBuilder,
+              itemCount: newsStore.articles.length,
+              itemBuilder: (_, index) => _itemBuilder(newsStore.articles[index]),
               separatorBuilder: (_, __) => const Divider(),
             ),
           )
@@ -73,23 +45,22 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
-  Widget? _itemBuilder(BuildContext context, int index) {
-    final currentNews = _news[index];
+  Widget? _itemBuilder(Article article) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, "/screens/single-news", arguments: currentNews["id"]);
+        Navigator.pushNamed(context, "/screens/single-news", arguments: article);
       },
       leading: SizedBox(
         width: 60,
         child: Hero(
-          tag: "news:${currentNews['id']}",
+          tag: "news:${article.id}",
           child: Image.network(
-            currentNews['imageURL']!,
+            article.image,
             fit: BoxFit.cover,
           ),
         ),
       ),
-      title: Text("${currentNews['title']}"),
+      title: Text(article.title),
       subtitle: IconTheme.merge(
         data: const IconThemeData(size: 16),
         child: DefaultTextStyle.merge(
@@ -104,12 +75,12 @@ class _NewsScreenState extends State<NewsScreen> {
                 const Icon(
                   Icons.thumb_up_alt_rounded,
                 ),
-                Text("${currentNews['likes']}"),
+                Text("${article.likes}"),
                 const SizedBox(width: 16),
                 const Icon(
                   Icons.comment_rounded,
                 ),
-                Text("${currentNews['comments']}"),
+                const Text("0"),
                 const Spacer(),
                 const Text("Dois mêses atras")
               ],
