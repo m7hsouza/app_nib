@@ -1,4 +1,4 @@
-import 'package:app_nib/src/commons/auth/auth_service.dart';
+import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/features/news/screens/single_news_screen.dart';
 import 'package:app_nib/src/shared/services/http_service.dart';
@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
+  static final scaffoldRoot = GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,6 +27,7 @@ class AppWidget extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         initialRoute: "/screens/sign-in",
+        scaffoldMessengerKey: AppWidget.scaffoldRoot,
         routes: {
           "/screens/": (context) => const MainScreen(),
           "/screens/sign-in": (context) => const SignInScreen(),

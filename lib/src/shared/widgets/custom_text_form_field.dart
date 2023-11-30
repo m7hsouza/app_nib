@@ -11,16 +11,19 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        onChanged: onChanged,
-        controller: controller,
-        validator: validator,
-        keyboardAppearance: Brightness.dark,
-        keyboardType: keyboardType,
-        style: const TextStyle(fontSize: 16),
-        decoration: InputDecoration(labelText: labelText),
+    return TextFormField(
+      onChanged: onChanged,
+      controller: controller,
+      validator: validator,
+      keyboardAppearance: Brightness.dark,
+      keyboardType: keyboardType,
+      style: const TextStyle(fontSize: 18),
+      decoration: InputDecoration(
+        labelText: labelText,
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 16,
+        ),
       ),
     );
   }

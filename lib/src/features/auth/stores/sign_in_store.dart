@@ -1,6 +1,9 @@
-import 'package:app_nib/src/commons/auth/auth_service.dart';
-import 'package:app_nib/src/commons/auth/credentials.dart';
+import 'package:app_nib/src/shared/auth/auth_service.dart';
+import 'package:app_nib/src/shared/auth/credentials.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+
+enum SignIgnState { idle, loading, success, error }
 
 class SignInStore extends ChangeNotifier {
   final AuthService _authService;
@@ -8,6 +11,12 @@ class SignInStore extends ChangeNotifier {
   final form = GlobalKey<FormState>();
   final enrollmentNumber = TextEditingController();
   final password = TextEditingController();
+
+  SignIgnState _state = SignIgnState.idle;
+  SignIgnState get state => _state;
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+
 
   SignInStore(this._authService);
 
@@ -33,8 +42,19 @@ class SignInStore extends ChangeNotifier {
   }
 
   Future<void> login() async {
+    _state = SignIgnState.loading;
     if (form.currentState!.validate()) {
-      await _authService.login(credentials: Credentials(enrollmentNumber: enrollmentNumber.text, password: password.text));
+      try {
+        await _authService.login(credentials: Credentials(enrollmentNumber: enrollmentNumber.text, password: password.text));
+        _state = SignIgnState.success;
+      } on DioException catch (error) {
+        if (error.response?.statusCode == 401) {
+          _errorMessage = 'Usuario ou senha invalido';
+        }
+        _state = SignIgnState.error;
+      } finally {
+        notifyListeners();
+      }
     }
   }
 }

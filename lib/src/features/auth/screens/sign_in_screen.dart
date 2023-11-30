@@ -1,3 +1,4 @@
+import 'package:app_nib/src/app_widget.dart';
 import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:app_nib/src/features/auth/screens/widgets/layout_widget.dart';
@@ -19,6 +20,13 @@ class _SignInScreenState extends State<SignInScreen> {
     super.initState();
 
     _store = context.read();
+    _store.addListener(() {
+      final state = _store.state;
+
+      if (state == SignIgnState.success) {
+        Navigator.of(context).pushReplacementNamed('/screens/');
+      }
+    });
   }
 
   @override
@@ -36,9 +44,24 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: Image.asset("assets/images/nib_logo.png", width: 160),
                 ),
-                CustomTextFormField(labelText: "Matricula", keyboardType: TextInputType.number, controller: _store.enrollmentNumber, validator: _store.validateEnrollmentNumber,),
+                CustomTextFormField(
+                  labelText: "Matricula",
+                  keyboardType: TextInputType.number,
+                  controller: _store.enrollmentNumber,
+                  validator: _store.validateEnrollmentNumber,
+                ),
                 const SizedBox(height: 16),
                 CustomTextFormField(labelText: "Senha", controller: _store.password, validator: _store.validatePassword),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text(
+                    _store.errorMessage,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 16
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 32, bottom: 8),
                   child: ElevatedButton(
