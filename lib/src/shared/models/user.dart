@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:app_nib/src/shared/models/permission.dart';
@@ -117,4 +118,40 @@ class User {
   String toJson() => json.encode(toMap());
 
   factory User.fromJson(String source) => User.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  User copyWith({
+    int? id,
+    String? name,
+    String? email,
+    String? enrollmentNumber,
+    String? avatar,
+    bool? passwordChangeRequired,
+    String? phone,
+    UserGender? gender,
+    UserState? state,
+    bool? isAlreadyBaptized,
+    bool? alreadyAcceptedTerm,
+    DateTime? birth,
+    DateTime? updatedAt,
+    List<Role>? roles,
+    List<Permission>? permissions,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      enrollmentNumber: enrollmentNumber ?? this.enrollmentNumber,
+      avatar: avatar ?? this.avatar,
+      passwordChangeRequired: passwordChangeRequired ?? this.passwordChangeRequired,
+      phone: phone ?? this.phone,
+      gender: gender ?? this.gender,
+      state: state ?? this.state,
+      isAlreadyBaptized: isAlreadyBaptized ?? this.isAlreadyBaptized,
+      alreadyAcceptedTerm: alreadyAcceptedTerm ?? this.alreadyAcceptedTerm,
+      birth: birth ?? this.birth,
+      updatedAt: updatedAt ?? this.updatedAt,
+      roles: roles ?? this.roles,
+      permissions: permissions ?? this.permissions,
+    );
+  }
 }

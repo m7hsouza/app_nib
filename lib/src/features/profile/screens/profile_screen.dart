@@ -1,14 +1,29 @@
-import 'package:app_nib/src/shared/auth/auth_service.dart';
+import 'package:app_nib/src/features/profile/profile_store.dart';
 import 'package:app_nib/src/shared/models/user.dart';
+import 'package:app_nib/src/shared/services/http_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileStore>().loadUser();
+  }
+  @override
   Widget build(BuildContext context) {
-    final user = context.watch<AuthService>().loggedUser!;
+    final profileStore = context.watch<ProfileStore>();
+    final user = profileStore.user;
+
     late Widget avatar;
     if (user.avatar == null) {
       String path = user.gender == UserGender.male ? 'assets/avatars/default-men.jpg' : 'assets/avatars/default-woman.jpg';
@@ -23,12 +38,6 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // CircleAvatar(
-            //   radius: 75,
-            //   backgroundImage: NetworkImage(
-            //     user.avatar ?? 'https://ui-avatars.com/api/?size=512&name=${user.name}',
-            //   ),
-            // ),
             Row(
               children: [
                 Container(
@@ -78,15 +87,27 @@ class ProfileScreen extends StatelessWidget {
                 const Spacer(),
               ],
             ),
+            TextButton(onPressed: () async {
+              final picker = ImagePicker();
+              final image = await picker.pickImage(source: ImageSource.gallery);
+              if (image != null) {
+                final formData = FormData.fromMap({
+                  'avatar': await MultipartFile.fromFile(image.path, filename: image.name),
+                });
+                final response = await context.read<HttpService>().client.post('/user/me/update-avatar', data: formData);
+                profileStore.updateUser(response.data);
+
+              }
+            }, child: Text('Escolher imagem')),
             Row(
               children: [
-                Checkbox(value: true, onChanged: (value) {}),
+                Checkbox(value: user.isAlreadyBaptized, onChanged: profileStore.onChangeAlredyBaptized),
                 const Text('Sou Batizado')
               ],
             ),
             Row(
               children: [
-                Checkbox(value: true, onChanged: (value) {}),
+                Checkbox(value: user.alreadyAcceptedTerm, onChanged: profileStore.onChangeAlredyAcceptedTerm),
                 const Text('Já assinei a ficha de compromisso de membro')
               ],
             ),
