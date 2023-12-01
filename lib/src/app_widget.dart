@@ -25,7 +25,7 @@ class AppWidget extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => AuthService(ctx.read<HttpService>())),
         ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>())),
         ChangeNotifierProvider(create: (ctx) => NewsStore(ctx.read<HttpService>())),
-        ChangeNotifierProvider(create: (ctx) => ProfileStore(ctx.read<AuthService>())),
+        ChangeNotifierProvider(create: (ctx) => ProfileStore(ctx.read<AuthService>(), ctx.read())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

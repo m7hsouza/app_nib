@@ -42,7 +42,7 @@ class Article {
       title: map['title'] as String,
       content: map['content'] as String,
       likes: map['likes'] ?? 0,
-      image: 'http://10.0.2.2:3333/${map['path']}',
+      image: map['image_url'],
       createdAt: DateTime.parse(map['created_at']),
       isHighlighted: map['is_highlighted'] as bool,
       author: Author.fromMap(map['author'] as Map<String,dynamic>),

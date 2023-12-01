@@ -23,8 +23,11 @@ enum UserState {
   }
 }
 enum UserGender {
-  male, female;
+  male('Masculuno'), female('Feminino');
 
+  const UserGender(this.label);
+
+  final String label;
     @override
   String toString() {
     return switch(this) {
@@ -47,7 +50,7 @@ class User {
   final String enrollmentNumber;
   final String? avatar;
   final bool passwordChangeRequired;
-  final String phone;
+  final String? phone;
   final UserGender gender;
   final UserState state;
   final bool isAlreadyBaptized;
@@ -64,7 +67,7 @@ class User {
     required this.enrollmentNumber,
     this.avatar,
     required this.passwordChangeRequired,
-    required this.phone,
+    this.phone,
     required this.gender,
     required this.state,
     required this.isAlreadyBaptized,
@@ -101,9 +104,9 @@ class User {
       name: map['name'] as String,
       email: map['email'] as String,
       enrollmentNumber: map['enrollment_number'] as String,
-      avatar: map['avatar_url'] != null ? 'http://10.0.2.2:3333/${map['avatar_url']}' : null,
+      avatar: map['avatar_url'],
       passwordChangeRequired: map['password_change_required'] as bool,
-      phone: map['phone'] as String,
+      phone: map['phone'],
       gender: UserGender.fromString(map['gender'] as String),
       state: UserState.fromString(map['state'] as String),
       isAlreadyBaptized: map['is_already_baptized'] as bool,

@@ -8,7 +8,7 @@ class HttpService {
 
   HttpService() : _client =  Dio(
     BaseOptions(
-      baseUrl: Platform.environment['API_URL'] ?? 'http://10.0.2.2:3333/api',
+      baseUrl: '${Platform.environment['API_URL'] ?? 'http://10.0.2.2:3333'}/api',
     ),
   );
 
