@@ -9,7 +9,7 @@
       "request": "launch",
       "type": "dart",
       "env": {
-        "API_URL": "http://localhost:3333/api"
+        "API_URL": "http://10.0.2.2:3333/api"
       }
     },
     {
