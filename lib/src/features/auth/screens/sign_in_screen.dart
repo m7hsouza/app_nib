@@ -3,6 +3,7 @@ import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:app_nib/src/features/auth/screens/widgets/layout_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -48,6 +49,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Image.asset("assets/images/nib_logo.png", width: 160),
                 ),
                 CustomTextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  formatter: MaskTextInputFormatter(mask: '######'),
                   labelText: "Matricula",
                   keyboardType: TextInputType.number,
                   controller: _store.enrollmentNumber,

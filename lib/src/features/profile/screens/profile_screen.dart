@@ -1,5 +1,6 @@
 import 'package:app_nib/src/commons/utils/toask.dart';
 import 'package:app_nib/src/features/profile/profile_store.dart';
+import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:app_nib/src/shared/models/user.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:flutter/gestures.dart';
@@ -212,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 64),
+                  padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 64),
                   child: SizedBox(
                     width: double.infinity,
                     height: 50,
@@ -227,6 +228,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                   ),
                 ),
+
+                TextButton(onPressed: context.read<AuthService>().logout, child: const Text('Sair'))
               ],
             ),
           ),

@@ -47,13 +47,24 @@ class SignInStore extends ChangeNotifier {
       try {
         await _authService.login(credentials: Credentials(enrollmentNumber: enrollmentNumber.text, password: password.text));
         _state = SignIgnState.success;
+        enrollmentNumber.clear();
+        password.clear();
       } on DioException catch (error) {
-        if (error.response?.statusCode == 401) {
-          _errorMessage = 'Usuario ou senha invalido';
+        
+        if (error.type == DioExceptionType.connectionError) {
+          _errorMessage = 'Servidor indiposinvel';
+          
+        } else if (error.type == DioExceptionType.badResponse) {
+          if (error.response?.statusCode == 401) {
+            _errorMessage = 'Usuario ou senha invalido';
+          } else {
+            _errorMessage = error.response?.data.toString() ?? '';
+          }
         }
         _state = SignIgnState.error;
       } finally {
         notifyListeners();
+        _errorMessage = '';
       }
     }
   }

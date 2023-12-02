@@ -21,6 +21,14 @@ class AuthService extends ChangeNotifier {
     _httpService.addTokenInHeaderRequest(response.data['access_token']);
   }
 
+  Future<void> logout() async {
+    final client = _httpService.client;
+    await client.post('/logout');
+    _httpService.removeTokenFromHeaderRequest();
+    loggedUser = null;
+    notifyListeners();
+  }
+
   bool can(String name) {
     if (loggedUser == null) return false;
 

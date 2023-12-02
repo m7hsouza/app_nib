@@ -31,6 +31,12 @@ class _MainScreenState extends State<MainScreen> {
       if (_authService.hasRole('admin')) const AdminPanelSettingsScreen(),
       const ProfileScreen(),
     ];
+
+    _authService.addListener(() {
+      if (_authService.loggedUser == null) {
+        Navigator.of(context).pushReplacementNamed('/screens/sign-in');
+      }
+    });
   }
 
   @override
