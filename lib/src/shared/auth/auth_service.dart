@@ -30,4 +30,11 @@ class AuthService extends ChangeNotifier {
     );
     return permissions.any((permission) => permission.name == name);
   }
+
+  bool hasRole(String pattern) {
+    if (loggedUser == null) return false;
+
+    final regex = RegExp(pattern);
+    return loggedUser!.roles.any((role) => regex.hasMatch(role.name));
+  }
 }

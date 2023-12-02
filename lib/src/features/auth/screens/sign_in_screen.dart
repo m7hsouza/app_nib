@@ -1,3 +1,4 @@
+import 'package:app_nib/src/commons/utils/toask.dart';
 import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:app_nib/src/features/auth/screens/widgets/layout_widget.dart';
@@ -24,15 +25,18 @@ class _SignInScreenState extends State<SignInScreen> {
 
       if (state == SignIgnState.success) {
         Navigator.of(context).pushReplacementNamed('/screens/');
+      } else if (state == SignIgnState.error) {
+        Toast.error(_store.errorMessage).show(context);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height,
       child: LayoutWidget(
-        body: Padding(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: _store.form,
@@ -50,17 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: _store.validateEnrollmentNumber,
                 ),
                 const SizedBox(height: 16),
-                CustomTextFormField(labelText: "Senha", controller: _store.password, validator: _store.validatePassword),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text(
-                    _store.errorMessage,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                      fontSize: 16
-                    ),
-                  ),
-                ),
+                CustomTextFormField(labelText: "Senha", obscureText: true, controller: _store.password, validator: _store.validatePassword),
                 Padding(
                   padding: const EdgeInsets.only(top: 32, bottom: 8),
                   child: ElevatedButton(

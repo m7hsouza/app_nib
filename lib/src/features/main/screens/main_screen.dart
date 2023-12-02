@@ -1,5 +1,6 @@
 import 'package:app_nib/src/features/admin/screens/admin_panel_settings_screen.dart';
 import 'package:app_nib/src/features/home/screens/home_screen.dart';
+import 'package:app_nib/src/features/main/main_store.dart';
 import 'package:app_nib/src/features/news/screens/news_screen.dart';
 import 'package:app_nib/src/features/profile/screens/profile_screen.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
@@ -16,12 +17,21 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentScreenIndex = 0;
   final _screenController = PageController(initialPage: 0);
-  final _screens = [
-    const HomeScreen(),
-    const NewsScreen(),
-    const AdminPanelSettingsScreen(),
-    const ProfileScreen(),
-  ];
+  late final AuthService _authService;
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _authService = context.read();
+
+    _screens = [
+      const HomeScreen(),
+      const NewsScreen(),
+      if (_authService.hasRole('admin')) const AdminPanelSettingsScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +55,11 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentScreenIndex,
         enableFeedback: true,
         onTap: _changePage,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Inicio"),
-          BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "Noticias"),
-          BottomNavigationBarItem(icon: Icon(Icons.admin_panel_settings_outlined), label: "Admin"),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Perfil"),
+        items: [
+          const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Inicio"),
+          const BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "Noticias"),
+          if (_authService.hasRole('admin')) const BottomNavigationBarItem(icon: Icon(Icons.admin_panel_settings_outlined), label: "Admin"),
+          const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Perfil"),
         ],
       ),
       floatingActionButton: _buildFloatActionButton(),

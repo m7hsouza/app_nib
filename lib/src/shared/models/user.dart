@@ -84,17 +84,15 @@ class User {
       'name': name,
       'email': email,
       'enrollment_number': enrollmentNumber,
-      'avatar_url': avatar,
       'password_change_required': passwordChangeRequired,
       'phone': phone,
       'gender': gender.toString(),
       'state': state.toString(),
       'is_already_baptized': isAlreadyBaptized,
       'already_accepted_term': alreadyAcceptedTerm,
-      'birth': birth.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'birth': birth.toString(),
       'roles': roles.map((x) => x.toMap()).toList(),
-      'updated_at': permissions.map((x) => x.toMap()).toList(),
+      'permissions': permissions.map((x) => x.toMap()).toList(),
     };
   }
 

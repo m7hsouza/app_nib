@@ -1,3 +1,4 @@
+import 'package:app_nib/src/features/main/main_store.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/features/profile/profile_store.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
@@ -10,6 +11,7 @@ import 'package:app_nib/config/app_theme.dart';
 import 'package:app_nib/src/features/main/screens/main_screen.dart';
 import 'package:app_nib/src/features/auth/screens/sign_in_screen.dart';
 import 'package:app_nib/src/features/auth/screens/sign_up_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 class AppWidget extends StatelessWidget {
@@ -26,11 +28,17 @@ class AppWidget extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>())),
         ChangeNotifierProvider(create: (ctx) => NewsStore(ctx.read<HttpService>())),
         ChangeNotifierProvider(create: (ctx) => ProfileStore(ctx.read<AuthService>(), ctx.read())),
+        ChangeNotifierProvider(create: (_) => MainStore())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         initialRoute: "/screens/sign-in",
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('pt', 'BR')],
         scaffoldMessengerKey: AppWidget.scaffoldRoot,
         routes: {
           "/screens/": (context) => const MainScreen(),

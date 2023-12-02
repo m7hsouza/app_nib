@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LayoutWidget extends StatelessWidget {
-  const LayoutWidget({super.key, required this.body, this.title});
+  const LayoutWidget({super.key, required this.child, this.title});
 
-  final Widget body;
+  final Widget child;
   final Widget? title;
 
   @override
@@ -14,7 +14,7 @@ class LayoutWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 140),
-            child: body,
+            child: child,
           ),
           ClipPath(
             clipper: _SShapedClipper(),
