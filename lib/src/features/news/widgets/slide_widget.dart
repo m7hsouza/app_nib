@@ -1,5 +1,5 @@
 import 'package:app_nib/src/features/news/models/article.dart';
-import 'package:app_nib/src/features/news/stores/news_store.dart';
+import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/widgets/slide_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +14,12 @@ class SlideWidget extends StatefulWidget {
 class _SlideWidgetState extends State<SlideWidget> {
   int _currentSlide = 0;
   final _slideController = PageController(viewportFraction: 0.85);
+
+  late final NewsSlideStore store = Provider.of(context);
+
   @override
   void initState() {
     super.initState();
-
     _slideController.addListener(() {
       final nextSlide = _slideController.page?.round();
 
@@ -37,7 +39,7 @@ class _SlideWidgetState extends State<SlideWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final articles = context.watch<NewsStore>().highlights;
+    final cards = store.cards;
 
     return Column(
       children: [
@@ -45,17 +47,17 @@ class _SlideWidgetState extends State<SlideWidget> {
           height: 240,
           child: PageView.builder(
             controller: _slideController,
-            itemCount: articles.length,
+            itemCount: cards.length,
             itemBuilder: (_, currentIndex) {
-              final article = articles[currentIndex];
+              final card = cards[currentIndex];
               return SlideTileWidget(
-                imageURL: article.image,
+                imageURL: card.image,
                 active: _currentSlide == currentIndex,
               );
             },
           ),
         ),
-        _buildBullets(context, articles)
+        _buildBullets(context, cards)
       ],
     );
   }

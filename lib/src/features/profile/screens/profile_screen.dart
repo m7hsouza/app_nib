@@ -69,9 +69,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       height: 150,
                       width: 120,
-                      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade500, width: 4.5), borderRadius: BorderRadius.circular(6), boxShadow: [
-                        BoxShadow(color: Colors.black.withOpacity(0.75), offset: const Offset(0, 1), blurRadius: 3)
-                      ]),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade500, width: 4.5),
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black.withOpacity(0.75), offset: const Offset(0, 1), blurRadius: 3)
+                        ],
+                      ),
                       child: avatar,
                     ),
                     const Spacer(),
@@ -228,7 +233,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                   ),
                 ),
-
                 TextButton(onPressed: context.read<AuthService>().logout, child: const Text('Sair'))
               ],
             ),

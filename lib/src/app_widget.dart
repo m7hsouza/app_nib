@@ -1,4 +1,5 @@
 import 'package:app_nib/src/features/main/main_store.dart';
+import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/features/profile/profile_store.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
@@ -27,6 +28,7 @@ class AppWidget extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => AuthService(ctx.read<HttpService>())),
         ChangeNotifierProvider(create: (ctx) => SignInStore(ctx.read<AuthService>())),
         ChangeNotifierProvider(create: (ctx) => NewsStore(ctx.read<HttpService>())),
+        ChangeNotifierProvider(create: (ctx) => NewsSlideStore(ctx.read()), lazy: true),
         ChangeNotifierProvider(create: (ctx) => ProfileStore(ctx.read<AuthService>(), ctx.read())),
         ChangeNotifierProvider(create: (_) => MainStore())
       ],

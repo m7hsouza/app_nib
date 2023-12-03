@@ -1,6 +1,5 @@
 import 'package:app_nib/src/features/admin/screens/admin_panel_settings_screen.dart';
 import 'package:app_nib/src/features/home/screens/home_screen.dart';
-import 'package:app_nib/src/features/main/main_store.dart';
 import 'package:app_nib/src/features/news/screens/news_screen.dart';
 import 'package:app_nib/src/features/profile/screens/profile_screen.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
@@ -83,7 +82,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget? _buildFloatActionButton() {
     final auth = context.read<AuthService>();
     if (_currentScreenIndex == 1 && auth.can('article.create')) {
-      return FloatingActionButton.extended(onPressed: () {}, label: const Text('Nova Noticia'));
+      return FloatingActionButton.extended(
+        icon: const Icon(Icons.newspaper_outlined),
+        onPressed: () {},
+        label: const Text('Criar'),
+      );
     }
     return null;
   }
