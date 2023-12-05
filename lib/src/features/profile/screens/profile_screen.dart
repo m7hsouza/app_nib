@@ -2,6 +2,7 @@ import 'package:app_nib/src/commons/utils/toask.dart';
 import 'package:app_nib/src/features/profile/profile_store.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:app_nib/src/shared/models/user.dart';
+import 'package:app_nib/src/shared/widgets/image_network_with_token.dart';
 import 'package:app_nib/src/shared/widgets/custom_text_form_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       String path = user.gender == UserGender.male ? 'assets/avatars/default-men.jpg' : 'assets/avatars/default-woman.jpg';
       avatar = Image.asset(path, fit: BoxFit.cover);
     } else {
-      avatar = Image.network(user.avatar!, fit: BoxFit.cover);
+      avatar = const ImageNetworkWithToken(
+        'http://localhost:3333/api/user/1/avatar',
+        fit: BoxFit.cover,
+      );
     }
 
     final phoneFormatter = MaskTextInputFormatter(
@@ -74,7 +78,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         border: Border.all(color: Colors.grey.shade500, width: 4.5),
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: [
-                          BoxShadow(color: Colors.black.withOpacity(0.75), offset: const Offset(0, 1), blurRadius: 3)
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.75),
+                            offset: const Offset(0, 1),
+                            blurRadius: 3,
+                          )
                         ],
                       ),
                       child: avatar,

@@ -2,6 +2,7 @@ import 'package:app_nib/src/features/news/models/article.dart';
 import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/features/news/widgets/slide_widget.dart';
+import 'package:app_nib/src/shared/widgets/image_network_with_token.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,7 @@ class _NewsScreenState extends State<NewsScreen> {
         width: 60,
         child: Hero(
           tag: "news:${article.id}",
-          child: Image.network(
+          child: ImageNetworkWithToken(
             article.image,
             fit: BoxFit.cover,
           ),

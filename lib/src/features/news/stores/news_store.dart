@@ -29,14 +29,7 @@ class NewsStore extends ChangeNotifier {
     _articles.clear();
     final response = await _httpService.client.get('/articles');
     _articles.addAll((response.data['data'] as List).map((data) => Article.fromMap(data)));
-    await loadHighlights();
     _state = NewsState.succes;
     notifyListeners();
-  }
-
-  Future<void> loadHighlights() async {
-    _highlights.clear();
-    final response = await _httpService.client.get('/article/highlights');
-    _highlights.addAll((response.data as List).map((data) => Article.fromMap(data)));
   }
 }

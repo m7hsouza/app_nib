@@ -52,7 +52,7 @@ class User {
   final bool passwordChangeRequired;
   final String? phone;
   final UserGender gender;
-  final UserState state;
+  final bool isActive;
   final bool isAlreadyBaptized;
   final bool alreadyAcceptedTerm;
   final DateTime birth;
@@ -69,7 +69,7 @@ class User {
     required this.passwordChangeRequired,
     this.phone,
     required this.gender,
-    required this.state,
+    required this.isActive,
     required this.isAlreadyBaptized,
     required this.alreadyAcceptedTerm,
     required this.birth,
@@ -87,7 +87,7 @@ class User {
       'password_change_required': passwordChangeRequired,
       'phone': phone,
       'gender': gender.toString(),
-      'state': state.toString(),
+      'is_active': isActive,
       'is_already_baptized': isAlreadyBaptized,
       'already_accepted_term': alreadyAcceptedTerm,
       'birth': birth.toString(),
@@ -106,7 +106,7 @@ class User {
       passwordChangeRequired: map['password_change_required'] as bool,
       phone: map['phone'],
       gender: UserGender.fromString(map['gender'] as String),
-      state: UserState.fromString(map['state'] as String),
+      isActive: map['is_active'],
       isAlreadyBaptized: map['is_already_baptized'] as bool,
       alreadyAcceptedTerm: map['already_accepted_term'] as bool,
       birth: DateTime.parse(map['birth']),
@@ -129,7 +129,7 @@ class User {
     bool? passwordChangeRequired,
     String? phone,
     UserGender? gender,
-    UserState? state,
+    bool? isActive,
     bool? isAlreadyBaptized,
     bool? alreadyAcceptedTerm,
     DateTime? birth,
@@ -146,7 +146,7 @@ class User {
       passwordChangeRequired: passwordChangeRequired ?? this.passwordChangeRequired,
       phone: phone ?? this.phone,
       gender: gender ?? this.gender,
-      state: state ?? this.state,
+      isActive: isActive ?? this.isActive,
       isAlreadyBaptized: isAlreadyBaptized ?? this.isAlreadyBaptized,
       alreadyAcceptedTerm: alreadyAcceptedTerm ?? this.alreadyAcceptedTerm,
       birth: birth ?? this.birth,

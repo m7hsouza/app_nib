@@ -9,7 +9,6 @@ class Article {
   final int likes;
   final String image;
   final DateTime createdAt;
-  final bool isHighlighted;
   final Author author;
 
   Article({
@@ -19,7 +18,6 @@ class Article {
     required this.likes,
     required this.image,
     required this.createdAt,
-    required this.isHighlighted,
     required this.author,
   });
 
@@ -29,9 +27,8 @@ class Article {
       'title': title,
       'content': content,
       'likes': likes,
-      'image': image,
+      'image_url': image,
       'created_at': createdAt.millisecondsSinceEpoch,
-      'is_highlighted': isHighlighted,
       'author': author.toMap(),
     };
   }
@@ -42,9 +39,8 @@ class Article {
       title: map['title'] as String,
       content: map['content'] as String,
       likes: map['likes'] ?? 0,
-      image: map['image_url'],
+      image: map['image_url'] as String,
       createdAt: DateTime.parse(map['created_at']),
-      isHighlighted: map['is_highlighted'] as bool,
       author: Author.fromMap(map['author'] as Map<String,dynamic>),
     );
   }

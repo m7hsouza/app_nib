@@ -1,4 +1,6 @@
+import 'package:app_nib/src/shared/services/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SlideTileWidget extends StatelessWidget {
   const SlideTileWidget({super.key, required this.imageURL, required this.active});
@@ -17,6 +19,10 @@ class SlideTileWidget extends StatelessWidget {
       ));
     }
 
+    final Map<String, String> headers = {
+      'Authorization': context.read<HttpService>().client.options.headers['Authorization'],
+    };
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       margin: EdgeInsets.only(
@@ -27,7 +33,7 @@ class SlideTileWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
-          image: NetworkImage(imageURL),
+          image: NetworkImage(imageURL, headers: headers),
           fit: BoxFit.cover,
         ),
         boxShadow: boxShadow,

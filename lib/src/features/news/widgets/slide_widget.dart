@@ -1,4 +1,4 @@
-import 'package:app_nib/src/features/news/models/article.dart';
+import 'package:app_nib/src/features/news/models/slide.dart';
 import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/widgets/slide_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class _SlideWidgetState extends State<SlideWidget> {
     );
   }
 
-  Widget _buildBullets(BuildContext context, List<Article> articles) {
+  Widget _buildBullets(BuildContext context, List<Slide> articles) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Row(

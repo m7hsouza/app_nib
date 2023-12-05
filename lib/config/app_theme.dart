@@ -17,7 +17,7 @@ abstract class AppTheme {
           statusBarBrightness: Brightness.dark,
           statusBarIconBrightness: Brightness.dark
         )
-      )
+      ),
     );
   }
 }
