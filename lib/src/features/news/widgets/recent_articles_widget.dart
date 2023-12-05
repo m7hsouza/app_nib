@@ -38,7 +38,7 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (_store.articles.length >= 5) TextButton(
+              if (_store.articles.length > 6) TextButton(
                 onPressed: () {},
                 child: Text('Ver mais'),
               )
