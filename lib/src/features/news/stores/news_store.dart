@@ -32,4 +32,9 @@ class NewsStore extends ChangeNotifier {
     _state = NewsState.succes;
     notifyListeners();
   }
+
+  Future<Article> getArticleById(int id) async {
+    final response = await _httpService.client.get('/article/$id');
+    return Article.fromMap(response.data);
+  }
 }

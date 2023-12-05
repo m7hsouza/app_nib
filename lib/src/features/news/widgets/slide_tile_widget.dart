@@ -12,11 +12,13 @@ class SlideTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final boxShadow = <BoxShadow>[];
     if (active) {
-      boxShadow.add(const BoxShadow(
-        color: Colors.black26,
-        blurRadius: 10,
-        offset: Offset(10, 10),
-      ));
+      boxShadow.add(
+        const BoxShadow(
+          color: Colors.black26,
+          blurRadius: 10,
+          offset: Offset(10, 10),
+        ),
+      );
     }
 
     final Map<String, String> headers = {

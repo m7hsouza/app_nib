@@ -1,6 +1,7 @@
 import 'package:app_nib/src/features/news/models/article.dart';
 import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
+import 'package:app_nib/src/features/news/widgets/recent_articles_widget.dart';
 import 'package:app_nib/src/features/news/widgets/slide_widget.dart';
 import 'package:app_nib/src/shared/widgets/image_network_with_token.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   late final NewsSlideStore sldiesStore = Provider.of(context);
-  
+
   @override
   void initState() {
     super.initState();
@@ -38,13 +39,10 @@ class _NewsScreenState extends State<NewsScreen> {
         children: [
           if (sldiesStore.state.isLoading) const CircularProgressIndicator(),
           if (sldiesStore.cards.isNotEmpty) const SlideWidget(),
-          Expanded(
-            child: ListView.separated(
-              itemCount: newsStore.articles.length,
-              itemBuilder: (_, index) => _itemBuilder(newsStore.articles[index]),
-              separatorBuilder: (_, __) => const Divider(),
-            ),
-          )
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: RecentArticlesWidget(),
+          ),
         ],
       ),
     );
@@ -53,7 +51,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget? _itemBuilder(Article article) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, "/screens/single-news", arguments: article);
+        Navigator.pushNamed(context, "/screens/single-news", arguments: article.id);
       },
       leading: SizedBox(
         width: 60,
