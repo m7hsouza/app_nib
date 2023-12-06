@@ -1,24 +1,24 @@
-import 'package:app_nib/src/features/news/models/article.dart';
-import 'package:app_nib/src/features/news/stores/recent_articles_store.dart';
+import 'package:app_nib/src/features/news/models/video.dart';
+import 'package:app_nib/src/features/news/stores/recent_videos_store.dart';
 import 'package:app_nib/src/shared/widgets/image_network_with_token.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RecentArticlesWidget extends StatefulWidget {
-  const RecentArticlesWidget({super.key});
+class RecentVideosWidget extends StatefulWidget {
+  const RecentVideosWidget({super.key});
 
   @override
-  State<RecentArticlesWidget> createState() => _RecentArticlesWidgetState();
+  State<RecentVideosWidget> createState() => _RecentArticlesWidgetState();
 }
 
-class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
-  late final RecentArticlesStore _store;
+class _RecentArticlesWidgetState extends State<RecentVideosWidget> {
+  late final RecentVideosStore _store;
   @override
   void initState() {
     super.initState();
-    _store = context.read<RecentArticlesStore>();
+    _store = context.read<RecentVideosStore>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _store.getRecentArticles();
+      _store.getRecentVideos();
     });
   }
 
@@ -32,15 +32,15 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Devocionais',
+                'Videos',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (_store.articles.length > 6) TextButton(
+              if (_store.videos.length > 6) TextButton(
                 onPressed: () {},
-                child: Text('Ver mais'),
+                child: const Text('Ver mais'),
               )
             ],
           ),
@@ -48,10 +48,10 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
           SizedBox(
             height: 120,
             child: switch (_store.state) {
-              RecentArticleState.idle => const SizedBox(),
-              RecentArticleState.loading => const Center(child: CircularProgressIndicator()),
-              RecentArticleState.success => _succesBuild(_store.articles),
-              RecentArticleState.error => null
+              RecentVideosState.idle => const SizedBox(),
+              RecentVideosState.loading => const Center(child: CircularProgressIndicator()),
+              RecentVideosState.success => _succesBuild(_store.videos),
+              RecentVideosState.error => null
             },
           ),
         ],
@@ -59,15 +59,15 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
     );
   }
 
-  Widget _succesBuild(List<Article> articles) {
+  Widget _succesBuild(List<Video> videos) {
     return ListView.separated(
-      itemCount: articles.length,
+      itemCount: videos.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (_, index) {
-        final article = articles[index];
+        final video = videos[index];
         return GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed('/screens/single-news', arguments: article.id);
+            Navigator.of(context).pushNamed('/show/video', arguments: video.id);
           },
           child: ClipRRect(
             borderRadius: const BorderRadius.vertical(
@@ -82,7 +82,8 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
                         borderRadius: const BorderRadius.vertical(
                           bottom: Radius.circular(8),
                         ),
-                        child: ImageNetworkWithToken(article.image, fit: BoxFit.fill)),
+                      child: ImageNetworkWithToken(video.thumbnailUrl, fit: BoxFit.fill),
+                    ),
                   ),
                   Container(
                     height: 35,
@@ -93,7 +94,7 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              article.title,
+                              video.title,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               softWrap: true,
@@ -102,7 +103,7 @@ class _RecentArticlesWidgetState extends State<RecentArticlesWidget> {
                           const SizedBox(width: 6),
                           Icon(Icons.thumb_up_alt_rounded, size: 12, color: Colors.grey.shade800),
                           const SizedBox(width: 4),
-                          Text('${article.likes}')
+                          Text('${video.likes}')
                         ],
                       ),
                     ),

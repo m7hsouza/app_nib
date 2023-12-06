@@ -1,4 +1,3 @@
-import 'package:app_nib/src/features/news/models/article.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
 import 'package:app_nib/src/shared/widgets/image_network_with_token.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +5,6 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
 
 class SingleNewsScreen extends StatelessWidget {
-  // late final article = context.read<NewsStore>().getArticleById(articleId);
   const SingleNewsScreen({super.key});
 
   @override

@@ -2,6 +2,7 @@ import 'package:app_nib/src/features/main/main_store.dart';
 import 'package:app_nib/src/features/news/stores/recent_articles_store.dart';
 import 'package:app_nib/src/features/news/stores/news_slide_store.dart';
 import 'package:app_nib/src/features/news/stores/news_store.dart';
+import 'package:app_nib/src/features/news/stores/recent_videos_store.dart';
 import 'package:app_nib/src/features/profile/profile_store.dart';
 import 'package:app_nib/src/shared/auth/auth_service.dart';
 import 'package:app_nib/src/features/auth/stores/sign_in_store.dart';
@@ -31,6 +32,7 @@ class AppWidget extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => NewsStore(ctx.read<HttpService>())),
         ChangeNotifierProvider(create: (ctx) => NewsSlideStore(ctx.read()), lazy: true),
         ChangeNotifierProvider(create: (ctx) => RecentArticlesStore(ctx.read())),
+        ChangeNotifierProvider(create: (ctx) => RecentVideosStore(ctx.read())),
         ChangeNotifierProvider(create: (ctx) => ProfileStore(ctx.read<AuthService>(), ctx.read())),
         ChangeNotifierProvider(create: (_) => MainStore())
       ],
@@ -49,6 +51,7 @@ class AppWidget extends StatelessWidget {
           "/screens/sign-in": (context) => const SignInScreen(),
           "/screens/sign-up": (context) => const SignUpScreen(),
           "/screens/single-news": (context) => const SingleNewsScreen(),
+          "/show/video": (context) => Container(),
         },
       ),
     );
